@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -23,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     private int jumpsAvailable = 0;     // current jumps available to player
 
     private bool facingRight = true;    // true if facing right
+
+    private GameObject[] foods;
 
     // Start is called before the first frame update
     void Start()
@@ -87,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
+        Debug.Log("Jump!");
         // tell the player to jump
         rbody.velocity = new Vector2(rbody.velocity.x, initialJumpVelocity);
         jumpsAvailable--;
@@ -98,5 +102,15 @@ public class PlayerMovement : MonoBehaviour
         // flip the direction the player is facing
         facingRight = !facingRight;
         transform.Rotate(Vector3.up, 180);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+       // foods.Append(collision.gameObject);
+    }
+
+    public GameObject[] getFoods()
+    {
+        return foods;
     }
 }
