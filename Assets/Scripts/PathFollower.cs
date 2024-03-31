@@ -75,10 +75,10 @@ public class PathFollower : MonoBehaviour
         elapsedTimePercentage = Mathf.SmoothStep(0, 1, elapsedTimePercentage);
 
         // move
-        transform.position = Vector3.Lerp(sourceWP.position, targetWP.position, elapsedTimePercentage);
+        transform.position = Vector2.Lerp(sourceWP.position, targetWP.position, elapsedTimePercentage);
 
         // rotate
-        transform.Rotate(Vector3.up, 180);
+        transform.Rotate(Vector2.up, 180);
         //transform.rotation = Quaternion.Lerp(sourceWP.rotation, targetWP.rotation, elapsedTimePercentage);
 
         // check if we've reached our waypoint (based on time). If so, target the next waypoint
@@ -102,7 +102,7 @@ public class PathFollower : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-           // other.transform.parent = null;
+           //other.transform.parent = null;
         }
     }
 

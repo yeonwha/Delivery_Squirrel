@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rbody;
     [SerializeField] Animator anim;
@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-       // foods.Append(collision.gameObject);
+       //foods.Append(collision.gameObject.tag);
     }
 
     public GameObject[] getFoods()
