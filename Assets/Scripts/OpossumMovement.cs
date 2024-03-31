@@ -41,6 +41,6 @@ public class OpossumMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        for (int i = 0; i < player.getFoods().;
+       // for (int i = 0; i < player.getFoods().;
     }
 }
