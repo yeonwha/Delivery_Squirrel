@@ -6,38 +6,38 @@ using UnityEngine.UIElements;
 public class PathFollower : MonoBehaviour
 {
     [SerializeField]
-    private WaypointPath path;          // the path we are following
-    private Transform sourceWP;         // the waypoint transform we are travelling from
-    private Transform targetWP;         // the waypoint transform we are travelling to
-    private int targetWPIndex = 0;      // the waypoint index we are travelling to
+    protected WaypointPath path;          // the path we are following
+    protected Transform sourceWP;         // the waypoint transform we are travelling from
+    protected Transform targetWP;         // the waypoint transform we are travelling to
+    protected int targetWPIndex = 0;      // the waypoint index we are travelling to
 
-    private float totalTimeToWP;        // the total time to get from source WP to targetWP
-    private float elapsedTimeToWP = 0;  // the elapsed time (sourceWP to targetWP)
-    private float speed = 6.0f;         // movement speed
+    protected float totalTimeToWP;        // the total time to get from source WP to targetWP
+    protected float elapsedTimeToWP = 0;  // the elapsed time (sourceWP to targetWP)
+    protected float speed = 2.0f;         // movement speed
 
-    private bool paused;
+    protected bool paused;
 
-    void Start()
+    virtual public void Start()
     {
         paused = false;
 
         TargetNextWaypoint();
     }
 
-    void Update()
+    public void Update()
     {
         
     }
 
-    private IEnumerator WaitForASec()
+    public IEnumerator WaitForASec()
     {
         paused = true;
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.6f);
         paused = false;
     }
 
     // Determine what waypoint we are going to next, and set associated variables
-    private void TargetNextWaypoint()
+    public void TargetNextWaypoint()
     {
         // reset the elapsed time
         elapsedTimeToWP = 0;
@@ -63,7 +63,7 @@ public class PathFollower : MonoBehaviour
     }
 
     // Travel towards the target waypoint (call this from FixedUpdate())
-    private void MoveTowardsWaypoint()
+    public void MoveTowardsWaypoint()
     {
         // calculate the elapsed time spent on the way to this waypoint
         elapsedTimeToWP += Time.deltaTime;
@@ -78,19 +78,23 @@ public class PathFollower : MonoBehaviour
         transform.position = Vector2.Lerp(sourceWP.position, targetWP.position, elapsedTimePercentage);
 
         // rotate
-        transform.Rotate(Vector2.up, 180);
+        
         //transform.rotation = Quaternion.Lerp(sourceWP.rotation, targetWP.rotation, elapsedTimePercentage);
 
         // check if we've reached our waypoint (based on time). If so, target the next waypoint
         if(elapsedTimePercentage >= 1)
         {
+            if (this.tag != "Vulture")
+            {
+                transform.Rotate(Vector2.up, 180);
+            }
             StartCoroutine(WaitForASec());
             TargetNextWaypoint();
         }
 
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -98,7 +102,7 @@ public class PathFollower : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -106,7 +110,7 @@ public class PathFollower : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
         if (!paused) {
             MoveTowardsWaypoint();

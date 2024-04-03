@@ -13,11 +13,10 @@ GameObject:
   - component: {fileID: 1584911770166424130}
   - component: {fileID: 8961133622533456721}
   - component: {fileID: 6022150061794302273}
-  - component: {fileID: 1091635658091507302}
   - component: {fileID: 3182792055825664727}
   m_Layer: 0
   m_Name: Opossum
-  m_TagString: Untagged
+  m_TagString: Opossum
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1788722953740255998}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.85, y: 2.89, z: -0.086339496}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -149,57 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abd0320b22c5124bb09e123fd32ffcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rbody: {fileID: 8961133622533456721}
-  anim: {fileID: 1584911770166424130}
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  player: {fileID: 0}
---- !u!61 &1091635658091507302
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1788722953740255998}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.18053246, y: -0.22219318}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.25, y: 1.75}
-    newSize: {x: 0.36, y: 0.28}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.72229, y: 1.0278717}
-  m_EdgeRadius: 0
+  path: {fileID: 0}
 --- !u!60 &3182792055825664727
 PolygonCollider2D:
   m_ObjectHideFlags: 0

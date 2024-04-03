@@ -113,4 +113,16 @@ public class PlayerController : MonoBehaviour
     {
         return foods;
     }
+
+    public void Die()
+    {
+        
+    }
+
+    public void Respawn(Transform startPt)
+    {
+        rbody.velocity = Vector3.zero;
+        transform.position = startPt.position;
+        Physics.SyncTransforms();
+    }
 }
