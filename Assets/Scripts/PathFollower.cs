@@ -6,30 +6,30 @@ using UnityEngine.UIElements;
 public class PathFollower : MonoBehaviour
 {
     [SerializeField]
-    protected WaypointPath path;          // the path we are following
-    protected Transform sourceWP;         // the waypoint transform we are travelling from
-    protected Transform targetWP;         // the waypoint transform we are travelling to
-    protected int targetWPIndex = 0;      // the waypoint index we are travelling to
+    private WaypointPath path;          // the path we are following
+    private Transform sourceWP;         // the waypoint transform we are travelling from
+    private Transform targetWP;         // the waypoint transform we are travelling to
+    private int targetWPIndex = 0;      // the waypoint index we are travelling to
 
-    protected float totalTimeToWP;        // the total time to get from source WP to targetWP
-    protected float elapsedTimeToWP = 0;  // the elapsed time (sourceWP to targetWP)
-    protected float speed = 2.0f;         // movement speed
+    private float totalTimeToWP;        // the total time to get from source WP to targetWP
+    private float elapsedTimeToWP = 0;  // the elapsed time (sourceWP to targetWP)
+    [SerializeField] private float speed;         // movement speed
 
-    protected bool paused;
+    private bool paused;
 
-    virtual public void Start()
+    private void Start()
     {
         paused = false;
 
         TargetNextWaypoint();
     }
 
-    public void Update()
+    private void Update()
     {
         
     }
 
-    public IEnumerator WaitForASec()
+    private IEnumerator WaitForASec()
     {
         paused = true;
         yield return new WaitForSeconds(0.6f);
@@ -37,7 +37,7 @@ public class PathFollower : MonoBehaviour
     }
 
     // Determine what waypoint we are going to next, and set associated variables
-    public void TargetNextWaypoint()
+    private void TargetNextWaypoint()
     {
         // reset the elapsed time
         elapsedTimeToWP = 0;
@@ -63,7 +63,7 @@ public class PathFollower : MonoBehaviour
     }
 
     // Travel towards the target waypoint (call this from FixedUpdate())
-    public void MoveTowardsWaypoint()
+    private void MoveTowardsWaypoint()
     {
         // calculate the elapsed time spent on the way to this waypoint
         elapsedTimeToWP += Time.deltaTime;
@@ -94,7 +94,7 @@ public class PathFollower : MonoBehaviour
 
     }
 
-    public void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -102,7 +102,7 @@ public class PathFollower : MonoBehaviour
         }
     }
 
-    public void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -110,7 +110,7 @@ public class PathFollower : MonoBehaviour
         }
     }
 
-    public void FixedUpdate()
+    private void FixedUpdate()
     {
         if (!paused) {
             MoveTowardsWaypoint();

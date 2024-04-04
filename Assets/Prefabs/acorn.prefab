@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6172507489333107154}
   - component: {fileID: 4026591587347823085}
   - component: {fileID: 2265900664673939283}
-  - component: {fileID: 8507244320281323490}
+  - component: {fileID: 4257434632443905506}
   m_Layer: 0
   m_Name: acorn
   m_TagString: Acorn
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2329630235070691374}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 25.96, y: 38.98, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -121,7 +121,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.014029503, y: 0.014028549}
   m_Size: {x: 0.5230427, y: 0.9719429}
   m_Direction: 0
---- !u!114 &8507244320281323490
+--- !u!114 &4257434632443905506
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
