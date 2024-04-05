@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] PlayerController player;
 
-    private const float minY = -50.0f;     // minimum Y where player can survive
+    private const float minY = -60.0f;     // minimum Y where player can survive
+    private const float scaredY = -40.0f;  // Y where player's hurt animation triggered
 
     [SerializeField] Transform startPt;   // Player's start point when game starts or restarts
 
@@ -38,10 +39,15 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.transform.position.y < minY)
+        if (player.transform.position.y < scaredY)
         {
-            player.Die();
-            player.Respawn(startPt);
+            player.Falling();
+
+            if(player.transform.position.y < minY)
+            {
+                player.Die();
+                player.Respawn(startPt);
+            }
         }
     }
     

@@ -24,7 +24,7 @@ public class CollectableItem : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             // Broadcast it is Player picking up the heart
-           // Messenger<int>.Broadcast(GameEvent.PICKUP_ACORN, value);
+            Messenger<int>.Broadcast(GameEvent.PICKUP_ACORN, value);
 
             // Destory the heart after Player picked it up
             Destroy(this.gameObject);

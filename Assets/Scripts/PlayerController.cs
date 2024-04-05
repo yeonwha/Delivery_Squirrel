@@ -25,8 +25,8 @@ public class PlayerController : MonoBehaviour
 
     private bool facingRight = true;    // true if facing right
 
-    private GameObject[] foods;
-
+    private List<GameObject> foods;
+    private string[] enemies = { "Opossum", "Pig", "Vulture" };
     // Start is called before the first frame update
     void Start()
     {
@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
     }
+
     private void OnDrawGizmos()
     {
         // draw the ground check sphere in the Scene
@@ -106,10 +107,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-       //foods.Append(collision.gameObject.tag);
+        
+        if (enemies.Contains(collision.gameObject.tag))
+        {
+            anim.SetTrigger("hurt");
+        }
     }
 
-    public GameObject[] getFoods()
+    public List<GameObject> getFoods()
     {
         return foods;
     }
@@ -117,6 +122,11 @@ public class PlayerController : MonoBehaviour
     public void Die()
     {
         
+    }
+
+    public void Falling()
+    {
+        anim.SetTrigger("hurt");
     }
 
     public void Respawn(Transform startPt)
