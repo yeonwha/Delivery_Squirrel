@@ -14,11 +14,12 @@ public class FoodItem : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            Destroy(this.gameObject);
             //target = this.gameObject.tag;
             Debug.Log("OTE2d " + collision.gameObject.tag);
 
             Messenger<FoodItem>.Broadcast(GameEvent.PICKUP_FOOD, this);
-            Destroy(this.gameObject);
+         
         }
     }
 

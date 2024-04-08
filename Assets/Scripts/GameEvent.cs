@@ -14,4 +14,5 @@ public static class GameEvent
     public const string BACK_HOME = "BACK_HOME";
     public const string PLAYER_DEAD = "PLAYER_DEAD";
     public const string RESTART_GAME = "RESTART_GAME";   
+    public const string ACORN_RESPAWN = "ACORN_RESPAWN";   
 }

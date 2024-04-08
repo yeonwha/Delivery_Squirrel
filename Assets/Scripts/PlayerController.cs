@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     private bool facingRight = true;    // true if facing right
 
-    private List<GameObject> foods;
+    private List<FoodItem> foods;
     private string[] enemies = { "Opossum", "Pig", "Vulture" };
     // Start is called before the first frame update
     void Start()
@@ -107,14 +108,20 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        // when contacting enemies
         if (enemies.Contains(collision.gameObject.tag))
         {
             anim.SetTrigger("hurt");
+            Messenger<string>.Broadcast(GameEvent.ENEMY_CONTACT, collision.gameObject.tag);
         }
     }
 
-    public List<GameObject> getFoods()
+    public void addFoods(FoodItem food)
+    {
+        foods.Add(food);
+    }
+
+    public List<FoodItem> getFoods()
     {
         return foods;
     }
