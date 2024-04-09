@@ -4,6 +4,7 @@ using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.Search;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Rendering;
 
 public class UIController : MonoBehaviour
@@ -15,6 +16,8 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI foodValue;
 
+    [SerializeField] private Image acornBar;
+
     [SerializeField] private GameOverPanel gameOverPanel;
 
     [SerializeField] private SettingsPopup settingsPopup;
@@ -22,7 +25,7 @@ public class UIController : MonoBehaviour
     private int popupsActive = 0;
     private void Awake()
     {
-        Messenger<int>.AddListener(GameEvent.PICKUP_ACORN, OnAcornValueChanged);
+        Messenger<float>.AddListener(GameEvent.PICKUP_ACORN, OnAcornValueChanged);
         Messenger<FoodItem>.AddListener(GameEvent.PICKUP_FOOD, OnFoodChanged);
         Messenger<string>.AddListener(GameEvent.ENEMY_CONTACT, OnEnemyContact);
         Messenger.AddListener(GameEvent.POPUP_OPENED, OnPopupOpened);
@@ -31,7 +34,7 @@ public class UIController : MonoBehaviour
 
     private void OnDestroy()
     {
-        Messenger<int>.RemoveListener(GameEvent.PICKUP_ACORN, OnAcornValueChanged);
+        Messenger<float>.RemoveListener(GameEvent.PICKUP_ACORN, OnAcornValueChanged);
         Messenger<FoodItem>.RemoveListener(GameEvent.PICKUP_FOOD, OnFoodChanged);
         Messenger<string>.RemoveListener(GameEvent.ENEMY_CONTACT, OnEnemyContact);
         Messenger.RemoveListener(GameEvent.POPUP_OPENED, OnPopupOpened);
@@ -42,6 +45,7 @@ public class UIController : MonoBehaviour
     void Start()
     {
         foods.Clear();
+        acornBar.fillAmount = 0;
     }
 
     private void Update()
@@ -74,10 +78,17 @@ public class UIController : MonoBehaviour
         }
     }
 
-    void OnAcornValueChanged(int acorn)
+    void OnAcornValueChanged(float acornRate)
     {
         acorns++;
-        acornValue.text = acorns.ToString();
+        //acornValue.text = acorns.ToString();
+
+        UpdateAcorn(acornRate);
+    }
+
+    void UpdateAcorn(float acornRate)
+    {
+        acornBar.fillAmount = acornRate;
     }
 
     public void OnFoodChanged(FoodItem item)
@@ -119,7 +130,8 @@ public class UIController : MonoBehaviour
                 if (acorns > 0)
                 {
                     acorns--;
-                    acornValue.text = acorns.ToString();
+                    UpdateAcorn((float)acorns / 3f);
+                    //acornValue.text = acorns.ToString();
                 }
                 else
                 {
@@ -133,7 +145,8 @@ public class UIController : MonoBehaviour
             if (acorns > 0)
             {
                 acorns--;
-                acornValue.text = acorns.ToString();
+                UpdateAcorn((float)acorns / 3f);
+                //acornValue.text = acorns.ToString();
             }
             else
             {

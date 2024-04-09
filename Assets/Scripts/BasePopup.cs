@@ -10,7 +10,7 @@ public class BasePopup : MonoBehaviour
         if (!IsActive())
         {
             this.gameObject.SetActive(true);     // Popup object
-            //Messenger.Broadcast(GameEvent.POPUP_OPENED);
+            Messenger.Broadcast(GameEvent.POPUP_OPENED);
         }
         else
         {
@@ -23,7 +23,7 @@ public class BasePopup : MonoBehaviour
         if (IsActive())
         {
             this.gameObject.SetActive(false);
-            //Messenger.Broadcast(GameEvent.POPUP_CLOSED);
+            Messenger.Broadcast(GameEvent.POPUP_CLOSED);
         }
         else
         {
