@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -103,7 +104,9 @@ public class GameManager : MonoBehaviour
 
     void OnRestartGame()
     {
-        player.Respawn(startPt);
+        SceneManager.LoadScene(0);
+        //player.Respawn(startPt);
+        PlaceAcorns();
     }
 
     void PlaceAcorns()

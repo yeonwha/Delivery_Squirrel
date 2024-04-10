@@ -11,6 +11,7 @@ public static class GameEvent
     public const string GAME_ACTIVE = "GAME_ACTIVE";
     public const string GAME_INACTIVE = "GAME_INACTIVE";
     public const string PICKUP_ACORN = "PICKUP_ACORN";
+    public const string PICKUP_GOLD = "PICKUP_GOLD";
     public const string BACK_HOME = "BACK_HOME";
     public const string PLAYER_DEAD = "PLAYER_DEAD";
     public const string RESTART_GAME = "RESTART_GAME";   

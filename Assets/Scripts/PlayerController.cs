@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        Debug.Log("Jump!");
+        //Debug.Log("Jump!");
         // tell the player to jump
         rbody.velocity = new Vector2(rbody.velocity.x, initialJumpVelocity);
         jumpsAvailable--;

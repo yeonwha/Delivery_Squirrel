@@ -6,10 +6,13 @@ using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
+using UnityEditorInternal;
 
 public class UIController : MonoBehaviour
 {
-    public int acorns = 0;
+    private int acorns = 0;
+    private int maxAcorns = 3;
+
     private List<FoodItem> foods = new List<FoodItem>();
 
     [SerializeField] private TextMeshProUGUI acornValue;
@@ -25,7 +28,7 @@ public class UIController : MonoBehaviour
     private int popupsActive = 0;
     private void Awake()
     {
-        Messenger<float>.AddListener(GameEvent.PICKUP_ACORN, OnAcornValueChanged);
+        Messenger.AddListener(GameEvent.PICKUP_ACORN, OnAcornValueChanged);
         Messenger<FoodItem>.AddListener(GameEvent.PICKUP_FOOD, OnFoodChanged);
         Messenger<string>.AddListener(GameEvent.ENEMY_CONTACT, OnEnemyContact);
         Messenger.AddListener(GameEvent.POPUP_OPENED, OnPopupOpened);
@@ -34,7 +37,7 @@ public class UIController : MonoBehaviour
 
     private void OnDestroy()
     {
-        Messenger<float>.RemoveListener(GameEvent.PICKUP_ACORN, OnAcornValueChanged);
+        Messenger.RemoveListener(GameEvent.PICKUP_ACORN, OnAcornValueChanged);
         Messenger<FoodItem>.RemoveListener(GameEvent.PICKUP_FOOD, OnFoodChanged);
         Messenger<string>.RemoveListener(GameEvent.ENEMY_CONTACT, OnEnemyContact);
         Messenger.RemoveListener(GameEvent.POPUP_OPENED, OnPopupOpened);
@@ -68,22 +71,22 @@ public class UIController : MonoBehaviour
         {
             Time.timeScale = 1;                         // unpause the game
 
-            Messenger.Broadcast(GameEvent.GAME_ACTIVE); // broadcast when resumed
+            //Messenger.Broadcast(GameEvent.GAME_ACTIVE); // broadcast when resumed
         }
         else
         {
             Time.timeScale = 0;                         // pause the game
 
-            Messenger.Broadcast(GameEvent.GAME_INACTIVE); // broadcast when paused
+           // Messenger.Broadcast(GameEvent.GAME_INACTIVE); // broadcast when paused
         }
     }
 
-    void OnAcornValueChanged(float acornRate)
+    void OnAcornValueChanged()
     {
         acorns++;
-        //acornValue.text = acorns.ToString();
-
-        UpdateAcorn(acornRate);
+       
+        float acornPercentage = (acorns * 1.0f) / maxAcorns;
+        UpdateAcorn(acornPercentage);
     }
 
     void UpdateAcorn(float acornRate)
@@ -164,7 +167,9 @@ public class UIController : MonoBehaviour
             foreach (FoodItem food in foods)
             {
                 string text = food.GetOwner().ToString() + " ";
+                
                 show += text;
+                
                 foodValue.text = show;
             }
         }

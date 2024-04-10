@@ -17,5 +17,15 @@ public class SettingsPopup : BasePopup
         }
     }
 
-    
+    void OnOkButton()
+    {
+        
+        //PlayerPrefs.set
+    }
+
+    void OnCancelButton()
+    {
+        
+    }
+
 }
