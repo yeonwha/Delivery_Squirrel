@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject acornPrefab;
 
-
+    private bool isGameOver = false;
     private Vector3[] acornSpawnPts;
 
     [SerializeField] AudioClip musicTrack;
@@ -73,7 +73,12 @@ public class GameManager : MonoBehaviour
 
             if(player.transform.position.y < minY)
             {
-                PlayerDeath();
+                // trigger the player death if the game is not over
+                if (!isGameOver)
+                {
+                    isGameOver = true;
+                    PlayerDeath();
+                }
             }
         }
     }
