@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.XR.Interaction;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -27,15 +28,12 @@ public class GameManager : MonoBehaviour
 
     private Vector3[] acornSpawnPts;
 
-    private bool isAcornRespawn = false; 
-
-
     private void Awake()
     {
         Messenger.AddListener(GameEvent.PLAYER_DEAD, OnPlayerDead);
         Messenger.AddListener(GameEvent.BACK_HOME, OnBackHome);
         Messenger.AddListener(GameEvent.RESTART_GAME, OnRestartGame);
-        Messenger<bool>.AddListener(GameEvent.ACORN_RESPAWN, OnAcornRespawn);
+
     }
 
     private void OnDestroy()
@@ -43,7 +41,7 @@ public class GameManager : MonoBehaviour
         Messenger.RemoveListener(GameEvent.PLAYER_DEAD, OnPlayerDead);
         Messenger.RemoveListener(GameEvent.BACK_HOME, OnBackHome);
         Messenger.RemoveListener(GameEvent.RESTART_GAME, OnRestartGame);
-        Messenger<bool>.RemoveListener(GameEvent.ACORN_RESPAWN, OnAcornRespawn);
+
     }
 
     // Start is called before the first frame update
@@ -57,11 +55,6 @@ public class GameManager : MonoBehaviour
         acorns = new GameObject[acornTotal];
         PlaceAcorns();
         
-    }
-
-    IEnumerator WaitForFiveSec()
-    {
-        yield return new WaitForSeconds(5.0f);
     }
 
     // Update is called once per frame
@@ -78,24 +71,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (isAcornRespawn)
+        if (isAcornRespawnActive() && ui.getAcornsNum() < acornTotal)
         {
-            for (int i = 0; i < acornTotal; i++)
-            {
-                if (acorns[i] == null)
-                {
-                    StartCoroutine(WaitForFiveSec());
-                    acorn = Instantiate(acornPrefab) as GameObject;
-                    acorn.transform.position = acornSpawnPts[i];
-                    acorns[i] = acorn;
-                }
-            }
+            StartCoroutine(RespawnAcorns());
         }
-
-        //if (player.transform.position.y >= 44.5 && ui.acorns < 1)
-        //{
-        //    PlaceGoldenAcorn();
-        //}
     }
     void PlayerDeath()
     {
@@ -109,6 +88,11 @@ public class GameManager : MonoBehaviour
         PlaceAcorns();
     }
 
+    IEnumerator WaitForFiveSec()
+    {
+        yield return new WaitForSeconds(5.0f);
+    }
+
     void PlaceAcorns()
     {
         for(int i = 0; i < acornTotal; i++)
@@ -120,11 +104,26 @@ public class GameManager : MonoBehaviour
                 acorns[i] = acorn;  
             }
         }
+
+        //yield return;
     }
 
-    void OnAcornRespawn(bool isOn)
+    IEnumerator RespawnAcorns()
     {
-        isAcornRespawn = isOn;
+        for (int i = 0; i < acornTotal; i++)
+        {
+            if (acorns[i] == null)
+            {
+
+                yield return new WaitForSeconds(5.0f);
+
+                acorn = Instantiate(acornPrefab) as GameObject;
+                acorn.transform.position = acornSpawnPts[i];
+                acorns[i] = acorn;
+            }
+        }
+
+        //yield return;
     }
 
     void OnPlayerDead()
@@ -156,5 +155,10 @@ public class GameManager : MonoBehaviour
     {
         // play happy sound effect
         ui.ShowGameOverPanel();
+    }
+
+    public bool isAcornRespawnActive()
+    {
+        return (PlayerPrefs.GetInt(PlayerPrefConstants.ACORN_RESPAWN) != 0);
     }
 }

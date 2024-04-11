@@ -84,7 +84,9 @@ public class UIController : MonoBehaviour
     void OnAcornValueChanged()
     {
         acorns++;
-       
+        if (acorns > maxAcorns) {
+            acorns = maxAcorns;
+        }
         float acornPercentage = (acorns * 1.0f) / maxAcorns;
         UpdateAcorn(acornPercentage);
     }
@@ -201,5 +203,10 @@ public class UIController : MonoBehaviour
     {
         gameOverPanel.Open();
         gameOverPanel.SetAcornCount(acorns);
+    }
+
+    public int getAcornsNum()
+    {
+        return acorns;
     }
 }

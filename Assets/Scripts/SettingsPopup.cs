@@ -8,24 +8,28 @@ public class SettingsPopup : BasePopup
 {
     [SerializeField] private Toggle toggle;
 
+
+    public override void Open()
+    {
+        base.Open();
+        toggle.isOn = (PlayerPrefs.GetInt(PlayerPrefConstants.ACORN_RESPAWN) != 0);
+    }
     // Update is called once per frame
     void Update()
     {
-        if (toggle.isOn)
-        {
-            Messenger<bool>.Broadcast(GameEvent.ACORN_RESPAWN, toggle.isOn);
-        }
+
     }
 
-    void OnOkButton()
+    public void OnOkButton()
     {
-        
+        PlayerPrefs.SetInt(PlayerPrefConstants.ACORN_RESPAWN, (toggle.isOn ? 1 : 0));
+        Close();
         //PlayerPrefs.set
     }
 
-    void OnCancelButton()
+    public void OnCancelButton()
     {
-        
+        Close();
     }
 
 }
