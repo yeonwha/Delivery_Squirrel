@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
         Messenger.AddListener(GameEvent.PLAYER_DEAD, OnPlayerDead);
         Messenger.AddListener(GameEvent.BACK_HOME, OnBackHome);
         Messenger.AddListener(GameEvent.RESTART_GAME, OnRestartGame);
+        Messenger.AddListener(GameEvent.PICKUP_ACORN, OnPickupAcorn);
 
     }
 
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
         Messenger.RemoveListener(GameEvent.PLAYER_DEAD, OnPlayerDead);
         Messenger.RemoveListener(GameEvent.BACK_HOME, OnBackHome);
         Messenger.RemoveListener(GameEvent.RESTART_GAME, OnRestartGame);
+        Messenger.RemoveListener(GameEvent.PICKUP_ACORN, OnPickupAcorn);
 
     }
 
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         acornSpawnPts = new Vector3[acornTotal];
+
         acornSpawnPts[0] = acorn1Pt.transform.position;
         acornSpawnPts[1] = acorn2Pt.transform.position;
         acornSpawnPts[2] = acorn3Pt.transform.position;
@@ -70,12 +73,18 @@ public class GameManager : MonoBehaviour
                 PlayerDeath();
             }
         }
+    }
 
+    void OnPickupAcorn()
+    {
+        ui.CollectAcorn();
         if (isAcornRespawnActive() && ui.getAcornsNum() < acornTotal)
         {
             StartCoroutine(RespawnAcorns());
         }
     }
+
+
     void PlayerDeath()
     {
         StartGameLostSequence();
@@ -110,6 +119,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator RespawnAcorns()
     {
+         yield return 0;   // wait for the frame finishes
+        
         for (int i = 0; i < acornTotal; i++)
         {
             if (acorns[i] == null)
@@ -159,6 +170,7 @@ public class GameManager : MonoBehaviour
 
     public bool isAcornRespawnActive()
     {
-        return (PlayerPrefs.GetInt(PlayerPrefConstants.ACORN_RESPAWN) != 0);
+        bool isActive = PlayerPrefs.GetInt(PlayerPrefConstants.ACORN_RESPAWN) != 0;
+        return isActive;
     }
 }

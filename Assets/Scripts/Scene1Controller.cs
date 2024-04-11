@@ -19,7 +19,7 @@ public class Scene1Controller : MonoBehaviour
     void Start()
     {
         musicSlider.value = SoundManager.Instance.MusicVolume;
-        sfxSlider.value = SoundManager.Instance.SfxVolume;
+        //sfxSlider.value = SoundManager.Instance.SfxVolume;
     }
 
 
@@ -35,13 +35,13 @@ public class Scene1Controller : MonoBehaviour
 
     public void OnPlaySfx() {       
         Debug.Log("OnPlaySfx()");     
-        SoundManager.Instance.PlaySfx(sfxLaser);
+        //SoundManager.Instance.PlaySfx(sfxLaser);
     }
 
     public void OnSfxVolumeChanged(float value)
     {
         Debug.Log("OnSfxVolumeChanged() value:" + value);
-        SoundManager.Instance.SfxVolume = value;           
+       //SoundManager.Instance.SfxVolume = value;           
     }
 
 

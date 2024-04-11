@@ -14,11 +14,16 @@ public class PathFollower : MonoBehaviour
     private float totalTimeToWP;        // the total time to get from source WP to targetWP
     private float elapsedTimeToWP = 0;  // the elapsed time (sourceWP to targetWP)
     [SerializeField] private float speed;         // movement speed
-
+    
+    [SerializeField] private AudioClip attackSound;
     private bool paused;
+
+    private AudioSource audioSrc;
 
     private void Start()
     {
+        audioSrc = GetComponent<AudioSource>();
+
         paused = false;
 
         TargetNextWaypoint();
@@ -93,22 +98,28 @@ public class PathFollower : MonoBehaviour
         }
 
     }
-
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.tag == "Player")
         {
-           // other.transform.parent = this.gameObject.transform;
+            audioSrc.PlayOneShot(attackSound);
         }
     }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //       // other.transform.parent = this.gameObject.transform;
+    //    }
+    //}
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-           //other.transform.parent = null;
-        }
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //       //other.transform.parent = null;
+    //    }
+    //}
 
     private void FixedUpdate()
     {

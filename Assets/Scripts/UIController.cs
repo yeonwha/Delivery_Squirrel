@@ -28,7 +28,7 @@ public class UIController : MonoBehaviour
     private int popupsActive = 0;
     private void Awake()
     {
-        Messenger.AddListener(GameEvent.PICKUP_ACORN, OnAcornValueChanged);
+        //Messenger.AddListener(GameEvent.PICKUP_ACORN, OnAcornValueChanged);
         Messenger<FoodItem>.AddListener(GameEvent.PICKUP_FOOD, OnFoodChanged);
         Messenger<string>.AddListener(GameEvent.ENEMY_CONTACT, OnEnemyContact);
         Messenger.AddListener(GameEvent.POPUP_OPENED, OnPopupOpened);
@@ -37,7 +37,7 @@ public class UIController : MonoBehaviour
 
     private void OnDestroy()
     {
-        Messenger.RemoveListener(GameEvent.PICKUP_ACORN, OnAcornValueChanged);
+       // Messenger.RemoveListener(GameEvent.PICKUP_ACORN, OnAcornValueChanged);
         Messenger<FoodItem>.RemoveListener(GameEvent.PICKUP_FOOD, OnFoodChanged);
         Messenger<string>.RemoveListener(GameEvent.ENEMY_CONTACT, OnEnemyContact);
         Messenger.RemoveListener(GameEvent.POPUP_OPENED, OnPopupOpened);
@@ -81,7 +81,7 @@ public class UIController : MonoBehaviour
         }
     }
 
-    void OnAcornValueChanged()
+    public void CollectAcorn()
     {
         acorns++;
         if (acorns > maxAcorns) {

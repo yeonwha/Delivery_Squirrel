@@ -30,9 +30,6 @@ public class PlayerController : MonoBehaviour
     private string[] enemies = { "Opossum", "Pig", "Vulture" };
 
     [SerializeField] private AudioClip jumpSound;
-    [SerializeField] private AudioClip opossumSound;
-    [SerializeField] private AudioClip vultureSound;
-    [SerializeField] private AudioClip pigSound;
 
     private AudioSource audioSrc;
 
@@ -124,18 +121,6 @@ public class PlayerController : MonoBehaviour
         // when contacting enemies
         if (enemies.Contains(collision.gameObject.tag))
         {
-            switch (collision.gameObject.tag)
-            {
-                case "Opossum":
-                    audioSrc.PlayOneShot(opossumSound); 
-                    break;
-                case "Vulture":
-                    audioSrc.PlayOneShot(vultureSound);
-                    break;
-                case "Pig":
-                    audioSrc.PlayOneShot(pigSound);
-                    break;
-            }
             anim.SetTrigger("hurt");
             Messenger<string>.Broadcast(GameEvent.ENEMY_CONTACT, collision.gameObject.tag);
         }

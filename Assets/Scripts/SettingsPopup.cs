@@ -8,6 +8,13 @@ public class SettingsPopup : BasePopup
 {
     [SerializeField] private Toggle toggle;
 
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] AudioClip musicTrack;
+
+    private void Start()
+    {
+        //musicSlider.value = SoundManager.Instance.MusicVolume;
+    }
 
     public override void Open()
     {
@@ -32,4 +39,9 @@ public class SettingsPopup : BasePopup
         Close();
     }
 
+    public void OnMusicVolumeChanged(float value)
+    {
+        Debug.Log("Music vol changed to:" + value);
+        SoundManager.Instance.MusicVolume = value;
+    }
 }

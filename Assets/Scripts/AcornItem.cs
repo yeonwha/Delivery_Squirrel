@@ -9,11 +9,13 @@ public class AcornItem : MonoBehaviour
         // check if the collider is Player
         if (collision.gameObject.tag == "Player")
         {
+            // Destory the acorn after Player picked it up
+            Destroy(this.gameObject);
+
             // Broadcast it is Player picking up the acorn
             Messenger.Broadcast(GameEvent.PICKUP_ACORN);
 
-            // Destory the acorn after Player picked it up
-            Destroy(this.gameObject);
+
         }
     }
 }
