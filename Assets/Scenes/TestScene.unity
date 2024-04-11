@@ -727,7 +727,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!1 &250140193
 GameObject:
   m_ObjectHideFlags: 0
@@ -2464,13 +2464,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 865297334}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 865297335}
+        m_TargetAssemblyTypeName: SettingsPopup, Assembly-CSharp
+        m_MethodName: OnOkButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3990,7 +3990,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 858516188}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 865297335}
+        m_TargetAssemblyTypeName: SettingsPopup, Assembly-CSharp
+        m_MethodName: OnCancelButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &858516188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5239,7 +5251,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!1 &1151136284
 GameObject:
   m_ObjectHideFlags: 0
@@ -8617,6 +8629,10 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  jumpSound: {fileID: 8300000, guid: 988413e526f98154ea07376d63ae995b, type: 3}
+  opossumSound: {fileID: 8300000, guid: dd0068a19e295db4e8cb1d19df054188, type: 3}
+  vultureSound: {fileID: 8300000, guid: 45c6e3c41c26ae24c875570c8aee0b4d, type: 3}
+  pigSound: {fileID: 8300000, guid: b5f6965af7f497545ad87fed83deac6a, type: 3}
 --- !u!1001 &1844857104
 PrefabInstance:
   m_ObjectHideFlags: 0
