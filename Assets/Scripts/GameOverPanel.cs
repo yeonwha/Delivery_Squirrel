@@ -9,33 +9,10 @@ public class GameOverPanel : BasePopup
 
     private int score = 0;
 
-    private bool pickedGoldenAcorn = false;
-
-    private void Awake()
-    {
-        Messenger.AddListener(GameEvent.PICKUP_GOLD, OnPickupGoldenAcorn);
-    }
-
-    private void OnDestroy()
-    {
-        Messenger.RemoveListener(GameEvent.PICKUP_GOLD, OnPickupGoldenAcorn);
-    }
-
-
-    private void OnPickupGoldenAcorn()
-    {
-        pickedGoldenAcorn = true;
-    }
-
     public void SetAcornCount(int acornCount)
     {
         score += acornCount;
         
-        if (pickedGoldenAcorn)
-        {
-            score += 99;
-        }
-
         scoreValue.text = score.ToString();
     }
 

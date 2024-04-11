@@ -22,6 +22,7 @@ public class SettingsPopup : BasePopup
         base.Open();
         acornToggle.isOn = (PlayerPrefs.GetInt(PlayerPrefConstants.ACORN_RESPAWN) != 0);
         effectSoundToggle.isOn = (PlayerPrefs.GetInt(PlayerPrefConstants.EFFECT_SOUND) != 0);
+        musicSlider.value = PlayerPrefs.GetFloat("volume", 1);
     }
     // Update is called once per frame
     void Update()
@@ -33,6 +34,7 @@ public class SettingsPopup : BasePopup
     {
         PlayerPrefs.SetInt(PlayerPrefConstants.ACORN_RESPAWN, (acornToggle.isOn ? 1 : 0));
         PlayerPrefs.SetInt(PlayerPrefConstants.EFFECT_SOUND, (effectSoundToggle.isOn ? 1 : 0));
+        PlayerPrefs.SetFloat("volume", musicSlider.value);
         Close();
         //PlayerPrefs.set
     }

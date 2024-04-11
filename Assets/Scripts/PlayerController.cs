@@ -46,9 +46,7 @@ public class PlayerController : MonoBehaviour
         rbody.gravityScale = gravity / Physics2D.gravity.y;
 
         // calculate jump velocity req'd for jumpHeight & jumpTime
-        initialJumpVelocity = Mathf.Sqrt(jumpHeight * -2 * gravity);
-
-        
+        initialJumpVelocity = Mathf.Sqrt(jumpHeight * -2 * gravity);        
     }
 
     // Update is called once per frame
@@ -138,11 +136,6 @@ public class PlayerController : MonoBehaviour
     public List<FoodItem> getFoods()
     {
         return foods;
-    }
-
-    public void Die()
-    {
-        
     }
 
     public void Falling()
