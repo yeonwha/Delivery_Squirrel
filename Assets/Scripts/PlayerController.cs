@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
         jumpsAvailable--;
         anim.SetTrigger("jump");    // notify animator
 
-        audioSrc.PlayOneShot(jumpSound);  // jump sound effect play onetime
+        audioSrc.PlayOneShot(jumpSound);  // jump sound effect play one time
     }
 
     void Flip()
