@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
 
     private Vector3[] acornSpawnPts;
 
+    [SerializeField] AudioClip musicTrack;
+    [SerializeField] AudioClip clapsSound;
+
     private void Awake()
     {
         Messenger.AddListener(GameEvent.PLAYER_DEAD, OnPlayerDead);
@@ -49,6 +52,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SoundManager.Instance.PlayMusic(musicTrack);
         acornSpawnPts = new Vector3[acornTotal];
 
         acornSpawnPts[0] = acorn1Pt.transform.position;
@@ -69,7 +73,6 @@ public class GameManager : MonoBehaviour
 
             if(player.transform.position.y < minY)
             {
-                //player.Die();
                 PlayerDeath();
             }
         }
@@ -84,7 +87,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     void PlayerDeath()
     {
         StartGameLostSequence();
@@ -95,11 +97,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
         //player.Respawn(startPt);
         PlaceAcorns();
-    }
-
-    IEnumerator WaitForFiveSec()
-    {
-        yield return new WaitForSeconds(5.0f);
     }
 
     void PlaceAcorns()
@@ -133,14 +130,11 @@ public class GameManager : MonoBehaviour
                 acorns[i] = acorn;
             }
         }
-
-        //yield return;
     }
 
     void OnPlayerDead()
     {
         StartGameLostSequence();
-        //player.Die();
     }
 
     void PlaceGoldenAcorn()
@@ -150,21 +144,21 @@ public class GameManager : MonoBehaviour
 
     void OnBackHome()
     {
-        //ui.ShowGameOverPanel();
         StartGameWonSequence();
     }
 
-
     void StartGameLostSequence()
     {
-        // play sad sound effect
         // popup?
+        SoundManager.Instance.StopMusic();
         ui.ShowGameOverPanel();
     }
 
     void StartGameWonSequence()
     {
         // play happy sound effect
+        SoundManager.Instance.PlaySfx(clapsSound);
+        SoundManager.Instance.StopMusic();
         ui.ShowGameOverPanel();
     }
 

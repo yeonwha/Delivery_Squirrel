@@ -61,13 +61,9 @@ public class SoundManager : MonoBehaviour
         if (Instance == null)                    // if Awake() has never been called before
         {
             Instance = this;                    // remember this as our (one & only) SM
-            DontDestroyOnLoad(this.gameObject); // don't destroy this gameObject when a new scene loads
             Init();                             // initialize the SM
         }
-        else
-        {                           // else we already have a SM that exists.
-            Destroy(gameObject);    // destroy the SM that was about to be built
-        }
+
     }
 
     private void OnDestroy()

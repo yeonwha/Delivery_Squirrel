@@ -31,12 +31,12 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private AudioClip jumpSound;
 
-    private AudioSource audioSrc;
+    //private AudioSource audioSrc;
 
     // Start is called before the first frame update
     void Start()
     {
-        audioSrc = GetComponent<AudioSource>();
+       // audioSrc = GetComponent<AudioSource>();
         // calculate gravity using gravity formula
         float timeToApex = jumpTime / 2.0f;
         float gravity = (-2 * jumpHeight) / Mathf.Pow(timeToApex, 2);
@@ -106,7 +106,11 @@ public class PlayerController : MonoBehaviour
         jumpsAvailable--;
         anim.SetTrigger("jump");    // notify animator
 
-        audioSrc.PlayOneShot(jumpSound);  // jump sound effect play one time
+        if (isSoundEffectActive())
+        {
+            SoundManager.Instance.PlaySfx(jumpSound);
+            //audioSrc.PlayOneShot(jumpSound);  // jump sound effect play one time
+        }
     }
 
     void Flip()
@@ -151,5 +155,10 @@ public class PlayerController : MonoBehaviour
         rbody.velocity = Vector3.zero;
         transform.position = startPt.position;
         Physics.SyncTransforms();
+    }
+
+    bool isSoundEffectActive()
+    {
+        return PlayerPrefs.GetInt(PlayerPrefConstants.EFFECT_SOUND) != 0;
     }
 }

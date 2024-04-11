@@ -6,10 +6,11 @@ using TMPro;
 
 public class SettingsPopup : BasePopup
 {
-    [SerializeField] private Toggle toggle;
+    [SerializeField] private Toggle acornToggle;
+    [SerializeField] private Toggle effectSoundToggle;
 
     [SerializeField] private Slider musicSlider;
-    [SerializeField] AudioClip musicTrack;
+   // [SerializeField] AudioClip musicTrack;
 
     private void Start()
     {
@@ -19,7 +20,8 @@ public class SettingsPopup : BasePopup
     public override void Open()
     {
         base.Open();
-        toggle.isOn = (PlayerPrefs.GetInt(PlayerPrefConstants.ACORN_RESPAWN) != 0);
+        acornToggle.isOn = (PlayerPrefs.GetInt(PlayerPrefConstants.ACORN_RESPAWN) != 0);
+        effectSoundToggle.isOn = (PlayerPrefs.GetInt(PlayerPrefConstants.EFFECT_SOUND) != 0);
     }
     // Update is called once per frame
     void Update()
@@ -29,7 +31,8 @@ public class SettingsPopup : BasePopup
 
     public void OnOkButton()
     {
-        PlayerPrefs.SetInt(PlayerPrefConstants.ACORN_RESPAWN, (toggle.isOn ? 1 : 0));
+        PlayerPrefs.SetInt(PlayerPrefConstants.ACORN_RESPAWN, (acornToggle.isOn ? 1 : 0));
+        PlayerPrefs.SetInt(PlayerPrefConstants.EFFECT_SOUND, (effectSoundToggle.isOn ? 1 : 0));
         Close();
         //PlayerPrefs.set
     }

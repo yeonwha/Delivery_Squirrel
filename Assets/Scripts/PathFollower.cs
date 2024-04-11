@@ -102,9 +102,18 @@ public class PathFollower : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            audioSrc.PlayOneShot(attackSound);
+            if (isSoundEffectActive())
+            {
+                SoundManager.Instance.PlaySfx(attackSound);
+            }
         }
     }
+
+    bool isSoundEffectActive()
+    {
+        return PlayerPrefs.GetInt(PlayerPrefConstants.EFFECT_SOUND) != 0;
+    }
+
     //private void OnTriggerEnter(Collider other)
     //{
     //    if (other.CompareTag("Player"))
