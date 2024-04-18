@@ -168,7 +168,7 @@ public class UIController : MonoBehaviour
         {
             foreach (FoodItem food in foods)
             {
-                string text = food.GetOwner().ToString() + " ";
+                string text = food.GetOwner().ToString().Substring(0,1) + " ";
                 
                 show += text;
                 
