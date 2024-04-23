@@ -10,7 +10,7 @@ public class DestinationArrived : MonoBehaviour
         // check if the collider is Player
         if (collision.gameObject.tag == "Player")
         {
-            // Broadcast it is Player picking up the heart
+            // Broadcast it is Player reached the goal
             Messenger.Broadcast(GameEvent.BACK_HOME);
         }
     }

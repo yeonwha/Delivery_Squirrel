@@ -26,17 +26,14 @@ public class PlayerController : MonoBehaviour
 
     private bool facingRight = true;    // true if facing right
 
-    private List<FoodItem> foods;
-    private string[] enemies = { "Opossum", "Pig", "Vulture" };
+    private List<FoodItem> foods;       // food items that player collects
+    private string[] enemies = { "Opossum", "Pig", "Vulture" };     // types of enemy
 
     [SerializeField] private AudioClip jumpSound;
-
-    //private AudioSource audioSrc;
 
     // Start is called before the first frame update
     void Start()
     {
-       // audioSrc = GetComponent<AudioSource>();
         // calculate gravity using gravity formula
         float timeToApex = jumpTime / 2.0f;
         float gravity = (-2 * jumpHeight) / Mathf.Pow(timeToApex, 2);
@@ -98,16 +95,15 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        //Debug.Log("Jump!");
         // tell the player to jump
         rbody.velocity = new Vector2(rbody.velocity.x, initialJumpVelocity);
         jumpsAvailable--;
         anim.SetTrigger("jump");    // notify animator
 
+        // jump sound played once if sound effect setting is on
         if (isSoundEffectActive())
         {
             SoundManager.Instance.PlaySfx(jumpSound);
-            //audioSrc.PlayOneShot(jumpSound);  // jump sound effect play one time
         }
     }
 
@@ -128,21 +124,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // add food item player collect to the record 
     public void addFoods(FoodItem food)
     {
         foods.Add(food);
     }
 
+    // return the foods collection to show in the UI
     public List<FoodItem> getFoods()
     {
         return foods;
     }
 
+    // when player falls down
     public void Falling()
     {
         anim.SetTrigger("hurt");
     }
 
+    // Respawn player's location and status
     public void Respawn(Transform startPt)
     {
         rbody.velocity = Vector3.zero;
@@ -150,6 +150,7 @@ public class PlayerController : MonoBehaviour
         Physics.SyncTransforms();
     }
 
+    // check if sound effect setting is on
     bool isSoundEffectActive()
     {
         return PlayerPrefs.GetInt(PlayerPrefConstants.EFFECT_SOUND) != 0;

@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class GameStartPanel : MonoBehaviour
 {
-    [SerializeField] private Image acornbg;
-    [SerializeField] AudioClip musicTrack;
+    [SerializeField] private Image acornbg;            // background image
+    [SerializeField] AudioClip musicTrack;             // background music
     // Start is called before the first frame update
     void Start()
     {

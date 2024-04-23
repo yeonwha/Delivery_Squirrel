@@ -15,21 +15,21 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Transform startPt;   // Player's start point when game starts or restarts
 
-    private GameObject[] acorns;
-    private const int acornTotal = 3;
+    private GameObject[] acorns;          // count and store the acorn collected
+    private const int acornTotal = 3;     // maximum total number of acorn
 
-    private GameObject acorn;
-    [SerializeField] private Transform acorn1Pt;
-    [SerializeField] private Transform acorn2Pt;
-    [SerializeField] private Transform acorn3Pt;
+    private GameObject acorn;             // reference to acorn item
+    [SerializeField] private Transform acorn1Pt;     // a acorn's position in the scene
+    [SerializeField] private Transform acorn2Pt;     // a acorn's position in the scene
+    [SerializeField] private Transform acorn3Pt;     // a acorn's position in the scene
+    private Vector3[] acornSpawnPts;      // acorns' positions
 
-    [SerializeField] private GameObject acornPrefab;
+    [SerializeField] private GameObject acornPrefab;   // acorn's prefab to place in the scene
 
-    private bool isGameOver = false;
-    private Vector3[] acornSpawnPts;
+    private bool isGameOver = false;      // check if player's dead or not
 
-    [SerializeField] AudioClip musicTrack;
-    [SerializeField] AudioClip clapsSound;
+    [SerializeField] AudioClip musicTrack;            // background music
+    [SerializeField] AudioClip clapsSound;            // claps sound when player reaches the goal point
 
     private void Awake()
     {
@@ -52,7 +52,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SoundManager.Instance.PlayMusic(musicTrack);
+        //SoundManager.Instance.PlayMusic(musicTrack);
+
+        // place acrons in the scene
         acornSpawnPts = new Vector3[acornTotal];
 
         acornSpawnPts[0] = acorn1Pt.transform.position;
@@ -61,12 +63,12 @@ public class GameManager : MonoBehaviour
         
         acorns = new GameObject[acornTotal];
         PlaceAcorns();
-        
     }
 
     // Update is called once per frame
     void Update()
     {
+        // check if player is falling and make it die when fallen down too deep
         if (player.transform.position.y < scaredY)
         {
             player.Falling();
@@ -83,6 +85,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // when player picked up acorn, update Ui and respawn if easy mode is on
     void OnPickupAcorn()
     {
         ui.CollectAcorn();
@@ -97,13 +100,14 @@ public class GameManager : MonoBehaviour
         StartGameLostSequence();
     }
 
+    // if game is restarted, back to the first loadscene and place acorns again
     void OnRestartGame()
     {
         SceneManager.LoadScene(0);
-        //player.Respawn(startPt);
         PlaceAcorns();
     }
 
+    // place acorn items at the position
     void PlaceAcorns()
     {
         for(int i = 0; i < acornTotal; i++)
@@ -115,10 +119,9 @@ public class GameManager : MonoBehaviour
                 acorns[i] = acorn;  
             }
         }
-
-        //yield return;
     }
 
+    // respawn acorns after 5 sec when easy mode is on
     IEnumerator RespawnAcorns()
     {
          yield return 0;   // wait for the frame finishes
@@ -137,28 +140,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // when player dies, call the gameover panel
     void OnPlayerDead()
     {
         StartGameLostSequence();
     }
 
-    void PlaceGoldenAcorn()
-    {
-        golden_acorn.SetActive(true);
-    }
-
+    // when player reached the goal point, call the gameover panel
     void OnBackHome()
     {
         StartGameWonSequence();
     }
 
+    // when player dies, gameover panel's up with no clap sound
     void StartGameLostSequence()
     {
-        // popup?
         SoundManager.Instance.StopMusic();
         ui.ShowGameOverPanel();
     }
 
+    // when player reached the goal, game over panel's up with clap sound
     void StartGameWonSequence()
     {
         // play happy sound effect
@@ -167,6 +168,7 @@ public class GameManager : MonoBehaviour
         ui.ShowGameOverPanel();
     }
 
+    // check if easy mode is on
     public bool isAcornRespawnActive()
     {
         bool isActive = PlayerPrefs.GetInt(PlayerPrefConstants.ACORN_RESPAWN) != 0;

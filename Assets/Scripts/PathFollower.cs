@@ -29,11 +29,7 @@ public class PathFollower : MonoBehaviour
         TargetNextWaypoint();
     }
 
-    private void Update()
-    {
-        
-    }
-
+    // wait when they are at the point
     private IEnumerator WaitForASec()
     {
         paused = true;
@@ -87,9 +83,9 @@ public class PathFollower : MonoBehaviour
         //transform.rotation = Quaternion.Lerp(sourceWP.rotation, targetWP.rotation, elapsedTimePercentage);
 
         // check if we've reached our waypoint (based on time). If so, target the next waypoint
-        if(elapsedTimePercentage >= 1)
+        if(elapsedTimePercentage >= 1)    
         {
-            if (this.tag != "Vulture")
+            if (this.tag != "Vulture")     // if the gameobject is not "Vulture", they flip
             {
                 transform.Rotate(Vector2.up, 180);
             }
@@ -98,6 +94,8 @@ public class PathFollower : MonoBehaviour
         }
 
     }
+
+    // when enemy collides with player, they make their sound if the sound effect is on
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -109,32 +107,16 @@ public class PathFollower : MonoBehaviour
         }
     }
 
+    // check if the sound effect is on
     bool isSoundEffectActive()
     {
         return PlayerPrefs.GetInt(PlayerPrefConstants.EFFECT_SOUND) != 0;
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //       // other.transform.parent = this.gameObject.transform;
-    //    }
-    //}
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //       //other.transform.parent = null;
-    //    }
-    //}
-
     private void FixedUpdate()
     {
         if (!paused) {
             MoveTowardsWaypoint();
-        }
-        
+        }        
     }
 }

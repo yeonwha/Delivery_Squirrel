@@ -44,13 +44,14 @@ public class UIController : MonoBehaviour
         Messenger.RemoveListener(GameEvent.POPUP_CLOSED, OnPopupClosed);
     }
 
-    // Start is called before the first frame update
+    // empty the food ui value, and acorn bar
     void Start()
     {
         foods.Clear();
         acornBar.fillAmount = 0;
     }
 
+    // check if setting popups is open or not to open it when ESC key's pressed
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !settingsPopup.IsActive())
@@ -65,22 +66,21 @@ public class UIController : MonoBehaviour
             }
         }
     }
+
+    // when a popup is open, deactivate the game scene
     public void SetGameActive(bool active)
     {
         if (active)
         {
             Time.timeScale = 1;                         // unpause the game
-
-            //Messenger.Broadcast(GameEvent.GAME_ACTIVE); // broadcast when resumed
         }
         else
         {
             Time.timeScale = 0;                         // pause the game
-
-           // Messenger.Broadcast(GameEvent.GAME_INACTIVE); // broadcast when paused
         }
     }
 
+    // change the acorn bar based on the acorn amount that player picked
     public void CollectAcorn()
     {
         acorns++;
@@ -96,6 +96,7 @@ public class UIController : MonoBehaviour
         acornBar.fillAmount = acornRate;
     }
 
+    // show food's owner types that player collected. player can carry only 3 foods. 
     public void OnFoodChanged(FoodItem item)
     {
         if (foods.Count < 3)
@@ -104,8 +105,8 @@ public class UIController : MonoBehaviour
         }
         else
         {
-            foods.RemoveAt(0);
-            foods.Add(item);
+            foods.RemoveAt(0);    // when player already has 3 foods, remove the first food of the list
+            foods.Add(item);      // add new food
         }
         Debug.Log(foods.Count);
         Debug.Log("collected food for: " + item.GetOwner());
@@ -113,6 +114,7 @@ public class UIController : MonoBehaviour
         UpdateFoodValue();
     }
 
+    // when collide with enemy, they take their food otherwise take the acorn
     void OnEnemyContact(string enemy)
     {
         bool foodTaken = false;
@@ -136,7 +138,6 @@ public class UIController : MonoBehaviour
                 {
                     acorns--;
                     UpdateAcorn((float)acorns / 3f);
-                    //acornValue.text = acorns.ToString();
                 }
                 else
                 {
@@ -151,7 +152,6 @@ public class UIController : MonoBehaviour
             {
                 acorns--;
                 UpdateAcorn((float)acorns / 3f);
-                //acornValue.text = acorns.ToString();
             }
             else
             {
@@ -160,6 +160,7 @@ public class UIController : MonoBehaviour
         }
     }
 
+    // update ui of food information
     void UpdateFoodValue()
     {
         string show = "";

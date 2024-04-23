@@ -14,8 +14,6 @@ public class AcornItem : MonoBehaviour
 
             // Broadcast it is Player picking up the acorn
             Messenger.Broadcast(GameEvent.PICKUP_ACORN);
-
-
         }
     }
 }

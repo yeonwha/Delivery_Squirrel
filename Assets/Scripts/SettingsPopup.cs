@@ -30,13 +30,13 @@ public class SettingsPopup : BasePopup
 
     }
 
+    // check all the setting values and set as they are saved
     public void OnOkButton()
     {
         PlayerPrefs.SetInt(PlayerPrefConstants.ACORN_RESPAWN, (acornToggle.isOn ? 1 : 0));
         PlayerPrefs.SetInt(PlayerPrefConstants.EFFECT_SOUND, (effectSoundToggle.isOn ? 1 : 0));
         PlayerPrefs.SetFloat("volume", musicSlider.value);
         Close();
-        //PlayerPrefs.set
     }
 
     public void OnCancelButton()
@@ -44,6 +44,7 @@ public class SettingsPopup : BasePopup
         Close();
     }
 
+    // when the volume slide changed, background music volume changes
     public void OnMusicVolumeChanged(float value)
     {
         Debug.Log("Music vol changed to:" + value);
